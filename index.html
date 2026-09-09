@@ -3562,6 +3562,98 @@ background-position: center center;
 }
 
 
+/* LIVE BOOKING PRICE + DATE VALIDATION */
+.booking-price-summary {
+    margin-top: 14px;
+    padding: 14px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 12px;
+    background: rgba(255,255,255,0.08);
+}
+
+.booking-price-summary > div {
+    min-width: 0;
+    padding: 10px 9px;
+    border-radius: 9px;
+    background: rgba(255,255,255,0.07);
+}
+
+.booking-price-summary span {
+    display: block;
+    margin-bottom: 5px;
+    color: #c9dae5;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+}
+
+.booking-price-summary strong {
+    color: #ffffff;
+    font-family: Georgia, serif;
+    font-size: 19px;
+    font-weight: normal;
+}
+
+.booking-price-summary .booking-total {
+    background: rgba(201,154,61,0.22);
+    border: 1px solid rgba(240,197,95,0.28);
+}
+
+.booking-price-summary .booking-total strong {
+    color: #f4cf75;
+}
+
+.booking-selection-message {
+    min-height: 17px;
+    margin-top: 10px;
+    color: #d8e5ed !important;
+    font-size: 9px !important;
+    line-height: 1.5;
+    text-align: left;
+}
+
+.booking-selection-message.error {
+    color: #ffd2d2 !important;
+}
+
+.booking-selection-message.success {
+    color: #b9f0cf !important;
+}
+
+.direct-whatsapp-button.disabled {
+    opacity: 0.48;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+.calendar-day.available {
+    cursor: pointer;
+}
+
+.calendar-day.available:hover {
+    outline: 2px solid rgba(201,154,61,0.75);
+    outline-offset: -2px;
+}
+
+.calendar-day.booked {
+    cursor: not-allowed;
+}
+
+.calendar-day.past {
+    opacity: 0.46;
+    cursor: not-allowed;
+}
+
+.calendar-day.selected-checkin,
+.calendar-day.selected-checkout {
+    outline: 2px solid #c99a3d;
+    outline-offset: -2px;
+    box-shadow: inset 0 0 0 2px rgba(255,255,255,0.65);
+}
+
 
 .direct-whatsapp-button,
 .directions-button {
@@ -5689,6 +5781,23 @@ background-position: center center;
         grid-column: 1 / -1;
     }
 
+    .booking-price-summary {
+        padding: 9px;
+        gap: 5px;
+    }
+
+    .booking-price-summary > div {
+        padding: 8px 6px;
+    }
+
+    .booking-price-summary span {
+        font-size: 6px;
+    }
+
+    .booking-price-summary strong {
+        font-size: 15px;
+    }
+
     /* Location and final CTA stay polished without oversized vertical dead-space. */
     .location-section {
         padding: 52px 0;
@@ -7637,6 +7746,40 @@ background-position: center center;
                 </div>
 
 
+                <div
+                    class="booking-price-summary"
+                    id="bookingPriceSummary"
+                    aria-live="polite"
+                >
+                    <div>
+                        <span data-i18n="pricePerNightLabel">
+                            Price per night
+                        </span>
+                        <strong>€100</strong>
+                    </div>
+
+                    <div>
+                        <span data-i18n="nightsLabel">
+                            Nights
+                        </span>
+                        <strong id="bookingNights">—</strong>
+                    </div>
+
+                    <div class="booking-total">
+                        <span data-i18n="estimatedTotalLabel">
+                            Estimated total
+                        </span>
+                        <strong id="bookingTotal">—</strong>
+                    </div>
+                </div>
+
+                <p
+                    class="booking-selection-message"
+                    id="bookingSelectionMessage"
+                    aria-live="polite"
+                ></p>
+
+
 
                 <a
                     href="#"
@@ -7652,7 +7795,7 @@ background-position: center center;
 
 
                 <a
-                    href="https://www.google.com/maps?q=40.33332508121745,23.02950202868292"
+                    href="https://www.google.com/maps?q=40.33338583580795,23.029556464729904"
                     target="_blank"
                     rel="noopener"
                     class="directions-button"
@@ -7720,7 +7863,7 @@ background-position: center center;
             <div class="map-card">
 
                 <iframe
-                    src="https://www.google.com/maps?q=40.33332508121745,23.02950202868292&z=15&output=embed"
+                    src="https://www.google.com/maps?q=40.33338583580795,23.029556464729904&z=15&output=embed"
                     loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade"
                     title="Almira Blue location"
@@ -7829,7 +7972,7 @@ background-position: center center;
 
 
                 <a
-                    href="https://www.google.com/maps/dir/?api=1&destination=40.33332508121745,23.02950202868292"
+                    href="https://www.google.com/maps/dir/?api=1&destination=40.33338583580795,23.029556464729904"
                     target="_blank"
                     rel="noopener"
                     class="location-directions"
@@ -8133,6 +8276,9 @@ const translations = {
         checkIn: "Check-in",
         checkOut: "Check-out",
         bookingGuests: "Guests",
+        pricePerNightLabel: "Price per night",
+        nightsLabel: "Nights",
+        estimatedTotalLabel: "Estimated total",
         sendRequest: "SEND REQUEST",
         contactWhatsapp: "CONTACT ON WHATSAPP",
         getDirections: "GET DIRECTIONS",
@@ -8257,6 +8403,9 @@ const translations = {
         checkIn: "Check-in",
         checkOut: "Check-out",
         bookingGuests: "Număr de persoane",
+        pricePerNightLabel: "Preț pe noapte",
+        nightsLabel: "Nopți",
+        estimatedTotalLabel: "Total estimat",
         sendRequest: "TRIMITE CEREREA",
         contactWhatsapp: "CONTACTEAZĂ PE WHATSAPP",
         getDirections: "INDICAȚII DE NAVIGARE",
@@ -8381,6 +8530,9 @@ const translations = {
         checkIn: "Check-in",
         checkOut: "Check-out",
         bookingGuests: "Επισκέπτες",
+        pricePerNightLabel: "Τιμή ανά νύχτα",
+        nightsLabel: "Νύχτες",
+        estimatedTotalLabel: "Εκτιμώμενο σύνολο",
         sendRequest: "ΑΠΟΣΤΟΛΗ ΑΙΤΗΜΑΤΟΣ",
         contactWhatsapp: "ΕΠΙΚΟΙΝΩΝΙΑ ΣΤΟ WHATSAPP",
         getDirections: "ΟΔΗΓΙΕΣ ΠΡΟΣΒΑΣΗΣ",
@@ -8505,6 +8657,9 @@ const translations = {
         checkIn: "Настаняване",
         checkOut: "Напускане",
         bookingGuests: "Брой гости",
+        pricePerNightLabel: "Цена на нощувка",
+        nightsLabel: "Нощувки",
+        estimatedTotalLabel: "Очаквана обща сума",
         sendRequest: "ИЗПРАТИ ЗАПИТВАНЕ",
         contactWhatsapp: "СВЪРЖЕТЕ СЕ ПО WHATSAPP",
         getDirections: "УПЪТВАНИЯ",
@@ -8629,6 +8784,9 @@ const translations = {
         checkIn: "Prijava",
         checkOut: "Odjava",
         bookingGuests: "Broj gostiju",
+        pricePerNightLabel: "Cena po noćenju",
+        nightsLabel: "Noćenja",
+        estimatedTotalLabel: "Procenjeni ukupni iznos",
         sendRequest: "POŠALJI UPIT",
         contactWhatsapp: "KONTAKTIRAJTE PUTEM WHATSAPP-A",
         getDirections: "PUTANJA DO OBJEKTA",
@@ -8753,6 +8911,9 @@ const translations = {
         checkIn: "Check-in",
         checkOut: "Check-out",
         bookingGuests: "Gäste",
+        pricePerNightLabel: "Preis pro Nacht",
+        nightsLabel: "Nächte",
+        estimatedTotalLabel: "Geschätzter Gesamtpreis",
         sendRequest: "ANFRAGE SENDEN",
         contactWhatsapp: "ÜBER WHATSAPP KONTAKTIEREN",
         getDirections: "ROUTE ANZEIGEN",
@@ -8885,6 +9046,23 @@ function changeLanguage(language) {
         loadedLocalBusinessItems.length
     ) {
         renderLocalBusinessCards(loadedLocalBusinessItems);
+    }
+
+    if (
+        window.almiraBookingReady ===
+        true
+    ) {
+        if (
+            checkIn.value &&
+            checkOut.value
+        ) {
+            validateBookingSelection();
+        }
+        else {
+            setBookingMessage(
+                getBookingUiText().selectDates
+            );
+        }
     }
 
 }
@@ -13207,6 +13385,17 @@ function renderCalendarGrid(
     }
 
 
+    const today =
+        new Date();
+
+    const todayKey =
+        formatDateKey(
+            today.getFullYear(),
+            today.getMonth(),
+            today.getDate()
+        );
+
+
     for (
         let day = 1;
         day <= totalDays;
@@ -13254,6 +13443,116 @@ function renderCalendarGrid(
 
         element.textContent =
             day;
+
+
+        if (
+            dateKey <
+            todayKey
+        ) {
+            element.classList.add(
+                "past"
+            );
+        }
+
+
+        if (
+            checkIn &&
+            checkIn.value ===
+                dateKey
+        ) {
+            element.classList.add(
+                "selected-checkin"
+            );
+        }
+
+        if (
+            checkOut &&
+            checkOut.value ===
+                dateKey
+        ) {
+            element.classList.add(
+                "selected-checkout"
+            );
+        }
+
+
+        if (
+            !bookedDates.has(
+                dateKey
+            ) &&
+            dateKey >=
+                todayKey
+        ) {
+
+            element.setAttribute(
+                "role",
+                "button"
+            );
+
+            element.setAttribute(
+                "tabindex",
+                "0"
+            );
+
+            const chooseDate =
+                async function () {
+
+                    if (
+                        !checkIn.value ||
+                        (
+                            checkIn.value &&
+                            checkOut.value
+                        ) ||
+                        dateKey <=
+                            checkIn.value
+                    ) {
+                        checkIn.value =
+                            dateKey;
+
+                        checkOut.value =
+                            "";
+
+                        await handleCheckInChange();
+                    }
+
+                    else {
+                        checkOut.value =
+                            dateKey;
+
+                        await handleCheckOutChange();
+                    }
+
+                };
+
+
+            element.addEventListener(
+                "click",
+                chooseDate
+            );
+
+            element.addEventListener(
+                "keydown",
+                function (event) {
+                    if (
+                        event.key ===
+                            "Enter" ||
+                        event.key ===
+                            " "
+                    ) {
+                        event.preventDefault();
+                        chooseDate();
+                    }
+                }
+            );
+
+        }
+
+        else {
+            element.setAttribute(
+                "aria-disabled",
+                "true"
+            );
+        }
 
 
         calendarElement.appendChild(
@@ -13498,7 +13797,7 @@ function configurePropertyContactLinks() {
 
         const genericMessage =
             encodeURIComponent(
-                "Hello Almira Blue! I would like more information about availability."
+                "Hello Almira Blue! I would like more information about availability.\n\nSent from: www.almirablueclub.gr"
             );
 
         const href =
@@ -13543,8 +13842,11 @@ configurePropertyContactLinks();
 
 
 /* =========================================================
-   WHATSAPP BOOKING REQUEST
+   DIRECT BOOKING: DATE VALIDATION + PRICE CALCULATION
 ========================================================= */
+
+const NIGHTLY_RATE_EUR = 100;
+const BOOKING_SOURCE_WEBSITE = "www.almirablueclub.gr";
 
 const checkIn =
     document.getElementById(
@@ -13566,8 +13868,577 @@ const guestCount =
         "guestCount"
     );
 
+const bookingNights =
+    document.getElementById(
+        "bookingNights"
+    );
 
-function updateWhatsAppBooking() {
+const bookingTotal =
+    document.getElementById(
+        "bookingTotal"
+    );
+
+const bookingSelectionMessage =
+    document.getElementById(
+        "bookingSelectionMessage"
+    );
+
+
+const bookingUiText = {
+    en: {
+        selectDates: "Choose available check-in and check-out dates.",
+        invalidRange: "Check-out must be after check-in.",
+        bookedStart: "That check-in date is already booked. Please choose a green date.",
+        bookedRange: "Those dates include at least one booked night. Please choose another period.",
+        availabilityError: "Availability could not be verified. Please try again.",
+        available: "Available: {nights} night(s) · estimated total {total}."
+    },
+    ro: {
+        selectDates: "Alege date disponibile pentru check-in și check-out.",
+        invalidRange: "Data de check-out trebuie să fie după data de check-in.",
+        bookedStart: "Data de check-in este deja ocupată. Alege o zi verde.",
+        bookedRange: "Perioada aleasă include cel puțin o noapte ocupată. Alege alte date.",
+        availabilityError: "Disponibilitatea nu a putut fi verificată. Încearcă din nou.",
+        available: "Disponibil: {nights} nopți · total estimat {total}."
+    },
+    el: {
+        selectDates: "Επιλέξτε διαθέσιμες ημερομηνίες άφιξης και αναχώρησης.",
+        invalidRange: "Η αναχώρηση πρέπει να είναι μετά την άφιξη.",
+        bookedStart: "Η ημερομηνία άφιξης είναι ήδη κρατημένη. Επιλέξτε πράσινη ημέρα.",
+        bookedRange: "Η περίοδος περιλαμβάνει τουλάχιστον μία κρατημένη νύχτα. Επιλέξτε άλλες ημερομηνίες.",
+        availabilityError: "Δεν ήταν δυνατή η επαλήθευση της διαθεσιμότητας. Δοκιμάστε ξανά.",
+        available: "Διαθέσιμο: {nights} νύχτες · εκτιμώμενο σύνολο {total}."
+    },
+    bg: {
+        selectDates: "Изберете свободни дати за настаняване и напускане.",
+        invalidRange: "Датата за напускане трябва да е след датата за настаняване.",
+        bookedStart: "Тази дата за настаняване вече е заета. Изберете зелена дата.",
+        bookedRange: "Избраният период включва поне една заета нощ. Изберете други дати.",
+        availabilityError: "Наличността не можа да бъде проверена. Опитайте отново.",
+        available: "Свободно: {nights} нощувки · очаквана сума {total}."
+    },
+    sr: {
+        selectDates: "Izaberite slobodne datume za prijavu i odjavu.",
+        invalidRange: "Datum odjave mora biti posle datuma prijave.",
+        bookedStart: "Taj datum prijave je već zauzet. Izaberite zeleni datum.",
+        bookedRange: "Izabrani period sadrži najmanje jednu zauzetu noć. Izaberite druge datume.",
+        availabilityError: "Dostupnost nije mogla da se proveri. Pokušajte ponovo.",
+        available: "Dostupno: {nights} noćenja · procenjeni ukupni iznos {total}."
+    },
+    de: {
+        selectDates: "Wählen Sie verfügbare Check-in- und Check-out-Daten.",
+        invalidRange: "Der Check-out muss nach dem Check-in liegen.",
+        bookedStart: "Dieses Check-in-Datum ist bereits belegt. Bitte wählen Sie einen grünen Tag.",
+        bookedRange: "Der gewählte Zeitraum enthält mindestens eine belegte Nacht. Bitte wählen Sie andere Daten.",
+        availabilityError: "Die Verfügbarkeit konnte nicht geprüft werden. Bitte versuchen Sie es erneut.",
+        available: "Verfügbar: {nights} Nächte · geschätzter Gesamtpreis {total}."
+    }
+};
+
+
+function getBookingUiText() {
+
+    const lang =
+        document.documentElement.lang ||
+        "en";
+
+    return (
+        bookingUiText[lang] ||
+        bookingUiText.en
+    );
+
+}
+
+
+function localDateFromKey(
+    value
+) {
+
+    const parts =
+        String(value)
+            .split("-")
+            .map(Number);
+
+    return new Date(
+        parts[0],
+        parts[1] - 1,
+        parts[2]
+    );
+
+}
+
+
+function addDaysToDateKey(
+    value,
+    days
+) {
+
+    const date =
+        localDateFromKey(
+            value
+        );
+
+    date.setDate(
+        date.getDate() +
+        days
+    );
+
+    return formatDateKey(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate()
+    );
+
+}
+
+
+function bookingNightCount(
+    arrival,
+    departure
+) {
+
+    if (
+        !arrival ||
+        !departure
+    ) {
+        return 0;
+    }
+
+    const start =
+        Date.UTC(
+            ...arrival
+                .split("-")
+                .map(Number)
+                .map(
+                    (value, index) =>
+                        index === 1
+                            ? value - 1
+                            : value
+                )
+        );
+
+    const end =
+        Date.UTC(
+            ...departure
+                .split("-")
+                .map(Number)
+                .map(
+                    (value, index) =>
+                        index === 1
+                            ? value - 1
+                            : value
+                )
+        );
+
+    return Math.round(
+        (
+            end - start
+        ) /
+        86400000
+    );
+
+}
+
+
+function setBookingMessage(
+    message,
+    type = ""
+) {
+
+    if (!bookingSelectionMessage) {
+        return;
+    }
+
+    bookingSelectionMessage.textContent =
+        message ||
+        "";
+
+    bookingSelectionMessage.className =
+        "booking-selection-message" +
+        (
+            type
+                ? " " + type
+                : ""
+        );
+
+}
+
+
+function resetBookingPrice() {
+
+    if (bookingNights) {
+        bookingNights.textContent =
+            "—";
+    }
+
+    if (bookingTotal) {
+        bookingTotal.textContent =
+            "—";
+    }
+
+}
+
+
+function setBookingRequestDisabled(
+    disabled
+) {
+
+    if (!whatsappBooking) {
+        return;
+    }
+
+    whatsappBooking.classList.toggle(
+        "disabled",
+        disabled
+    );
+
+    whatsappBooking.setAttribute(
+        "aria-disabled",
+        disabled
+            ? "true"
+            : "false"
+    );
+
+    if (disabled) {
+        whatsappBooking.removeAttribute(
+            "href"
+        );
+    }
+
+}
+
+
+async function loadPublicBookedDatesBetween(
+    fromDate,
+    toDate
+) {
+
+    const response =
+        await fetch(
+            SUPABASE_PUBLIC_URL +
+            "/rest/v1/rpc/get_public_availability",
+            {
+                method:
+                    "POST",
+
+                headers: {
+                    "apikey":
+                        SUPABASE_PUBLIC_KEY,
+
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body:
+                    JSON.stringify({
+                        p_website_slug:
+                            PUBLIC_WEBSITE_SLUG,
+
+                        p_property_slug:
+                            PUBLIC_PROPERTY_SLUG,
+
+                        p_from:
+                            fromDate,
+
+                        p_to:
+                            toDate
+                    }),
+
+                cache:
+                    "no-store"
+            }
+        );
+
+
+    if (!response.ok) {
+
+        const errorText =
+            await response.text();
+
+        throw new Error(
+            "Availability HTTP " +
+            response.status +
+            ": " +
+            errorText
+        );
+
+    }
+
+
+    const ranges =
+        await response.json();
+
+    const bookedDates =
+        new Set();
+
+
+    (ranges || []).forEach(
+        range => {
+
+            let currentDate =
+                localDateFromKey(
+                    range.check_in
+                );
+
+            const rangeEnd =
+                localDateFromKey(
+                    range.check_out
+                );
+
+            const requestStart =
+                localDateFromKey(
+                    fromDate
+                );
+
+            const requestEnd =
+                localDateFromKey(
+                    toDate
+                );
+
+
+            if (
+                currentDate <
+                requestStart
+            ) {
+                currentDate =
+                    new Date(
+                        requestStart
+                    );
+            }
+
+
+            while (
+                currentDate <
+                    rangeEnd &&
+                currentDate <
+                    requestEnd
+            ) {
+
+                bookedDates.add(
+                    formatDateKey(
+                        currentDate.getFullYear(),
+                        currentDate.getMonth(),
+                        currentDate.getDate()
+                    )
+                );
+
+                currentDate.setDate(
+                    currentDate.getDate() +
+                    1
+                );
+
+            }
+
+        }
+    );
+
+
+    return bookedDates;
+
+}
+
+
+async function validateBookingSelection() {
+
+    const t =
+        getBookingUiText();
+
+    const arrival =
+        checkIn.value;
+
+    const departure =
+        checkOut.value;
+
+
+    resetBookingPrice();
+    setBookingRequestDisabled(
+        true
+    );
+
+
+    if (
+        !arrival ||
+        !departure
+    ) {
+        setBookingMessage(
+            t.selectDates
+        );
+        return false;
+    }
+
+
+    const nights =
+        bookingNightCount(
+            arrival,
+            departure
+        );
+
+
+    if (
+        !Number.isFinite(nights) ||
+        nights <= 0
+    ) {
+        setBookingMessage(
+            t.invalidRange,
+            "error"
+        );
+        return false;
+    }
+
+
+    try {
+
+        /*
+            Checkout is exclusive: the guest stays on every date
+            from check-in up to, but not including, check-out.
+        */
+        const bookedDates =
+            await loadPublicBookedDatesBetween(
+                arrival,
+                departure
+            );
+
+
+        if (
+            bookedDates.has(
+                arrival
+            )
+        ) {
+            checkIn.value = "";
+            checkOut.value = "";
+
+            setBookingMessage(
+                t.bookedStart,
+                "error"
+            );
+
+            return false;
+        }
+
+
+        let cursor =
+            localDateFromKey(
+                arrival
+            );
+
+        const endDate =
+            localDateFromKey(
+                departure
+            );
+
+        let overlapsBookedNight =
+            false;
+
+
+        while (
+            cursor < endDate
+        ) {
+
+            const key =
+                formatDateKey(
+                    cursor.getFullYear(),
+                    cursor.getMonth(),
+                    cursor.getDate()
+                );
+
+            if (
+                bookedDates.has(
+                    key
+                )
+            ) {
+                overlapsBookedNight =
+                    true;
+                break;
+            }
+
+            cursor.setDate(
+                cursor.getDate() +
+                1
+            );
+
+        }
+
+
+        if (
+            overlapsBookedNight
+        ) {
+            checkOut.value = "";
+
+            setBookingMessage(
+                t.bookedRange,
+                "error"
+            );
+
+            return false;
+        }
+
+
+        const total =
+            nights *
+            NIGHTLY_RATE_EUR;
+
+        const totalText =
+            "€" +
+            total.toLocaleString(
+                "en-US"
+            );
+
+
+        if (bookingNights) {
+            bookingNights.textContent =
+                nights;
+        }
+
+        if (bookingTotal) {
+            bookingTotal.textContent =
+                totalText;
+        }
+
+
+        setBookingMessage(
+            t.available
+                .replace(
+                    "{nights}",
+                    nights
+                )
+                .replace(
+                    "{total}",
+                    totalText
+                ),
+            "success"
+        );
+
+
+        updateWhatsAppBooking(
+            true
+        );
+
+        return true;
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Could not validate booking dates.",
+            error
+        );
+
+        setBookingMessage(
+            t.availabilityError,
+            "error"
+        );
+
+        return false;
+
+    }
+
+}
+
+
+function updateWhatsAppBooking(
+    validDates = false
+) {
 
     const arrival =
         checkIn.value;
@@ -13576,7 +14447,21 @@ function updateWhatsAppBooking() {
         checkOut.value;
 
     const guests =
-        guestCount ? guestCount.value : "";
+        guestCount
+            ? guestCount.value
+            : "";
+
+    const nights =
+        bookingNightCount(
+            arrival,
+            departure
+        );
+
+    const total =
+        nights > 0
+            ? nights *
+                NIGHTLY_RATE_EUR
+            : 0;
 
 
     let message =
@@ -13602,18 +14487,55 @@ function updateWhatsAppBooking() {
             guests;
     }
 
+    if (
+        validDates &&
+        nights > 0
+    ) {
+        message +=
+            "\nNights: " +
+            nights +
+            "\nPrice per night: €" +
+            NIGHTLY_RATE_EUR +
+            "\nEstimated total: €" +
+            total;
+    }
+
+    message +=
+        "\n\nSent from: " +
+        BOOKING_SOURCE_WEBSITE;
+
 
     const whatsappNumber =
         String(PROPERTY_CONTACT.whatsapp || "")
             .replace(/\D/g, "");
 
+
     if (!whatsappNumber) {
-        whatsappBooking.style.display = "none";
-        whatsappBooking.removeAttribute("href");
+        whatsappBooking.style.display =
+            "none";
+        whatsappBooking.removeAttribute(
+            "href"
+        );
         return;
     }
 
-    whatsappBooking.style.display = "flex";
+
+    whatsappBooking.style.display =
+        "flex";
+
+
+    if (!validDates) {
+        setBookingRequestDisabled(
+            true
+        );
+        return;
+    }
+
+
+    setBookingRequestDisabled(
+        false
+    );
+
     whatsappBooking.href =
         "https://wa.me/" +
         whatsappNumber +
@@ -13625,26 +14547,132 @@ function updateWhatsAppBooking() {
 }
 
 
+function setBookingDateLimits() {
+
+    const today =
+        new Date();
+
+    const todayKey =
+        formatDateKey(
+            today.getFullYear(),
+            today.getMonth(),
+            today.getDate()
+        );
+
+    const maxDate =
+        new Date(
+            today
+        );
+
+    maxDate.setDate(
+        maxDate.getDate() +
+        369
+    );
+
+    const maxKey =
+        formatDateKey(
+            maxDate.getFullYear(),
+            maxDate.getMonth(),
+            maxDate.getDate()
+        );
+
+
+    checkIn.min =
+        todayKey;
+
+    checkOut.min =
+        todayKey;
+
+    checkIn.max =
+        maxKey;
+
+    checkOut.max =
+        maxKey;
+
+}
+
+
+async function handleCheckInChange() {
+
+    if (
+        checkIn.value
+    ) {
+        checkOut.min =
+            addDaysToDateKey(
+                checkIn.value,
+                1
+            );
+
+        if (
+            checkOut.value &&
+            checkOut.value <=
+                checkIn.value
+        ) {
+            checkOut.value =
+                "";
+        }
+    }
+
+    await validateBookingSelection();
+
+    renderCalendar();
+
+}
+
+
+async function handleCheckOutChange() {
+
+    await validateBookingSelection();
+
+    renderCalendar();
+
+}
+
+
 checkIn.addEventListener(
     "change",
-    updateWhatsAppBooking
+    handleCheckInChange
 );
 
 
 checkOut.addEventListener(
     "change",
-    updateWhatsAppBooking
+    handleCheckOutChange
 );
+
 
 if (guestCount) {
     guestCount.addEventListener(
         "change",
-        updateWhatsAppBooking
+        function () {
+            const valid =
+                Boolean(
+                    checkIn.value &&
+                    checkOut.value &&
+                    bookingNights &&
+                    bookingNights.textContent !==
+                        "—"
+                );
+
+            updateWhatsAppBooking(
+                valid
+            );
+        }
     );
 }
 
 
-updateWhatsAppBooking();
+setBookingDateLimits();
+resetBookingPrice();
+setBookingMessage(
+    getBookingUiText()
+        .selectDates
+);
+updateWhatsAppBooking(
+    false
+);
+window.almiraBookingReady =
+    true;
 
  /* =========================================================
            FOOTER YEAR

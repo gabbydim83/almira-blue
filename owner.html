@@ -77,8 +77,8 @@
         }
 
         .login-logo {
-            width: 75px;
-            height: 75px;
+            width: 78px;
+            height: 66px;
 
             margin:
                 0 auto 22px;
@@ -91,15 +91,49 @@
             border:
                 2px solid #c99a3d;
 
-            border-radius: 50%;
+            border-radius: 18px 18px 18px 7px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #ffffff 0%,
+                    #f6fbff 100%
+                );
+
+            box-shadow:
+                0 8px 22px
+                rgba(8,45,80,0.10);
 
             font-family:
                 Georgia,
                 serif;
 
-            font-size: 38px;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 1px;
 
-            color: #c99a3d;
+            color: #b7862c;
+
+            position: relative;
+        }
+
+        .login-logo::after {
+            content: "";
+
+            position: absolute;
+            bottom: 8px;
+
+            width: 28px;
+            height: 3px;
+
+            border-radius: 999px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #1778aa,
+                    #c99a3d
+                );
         }
 
         .login-card h1 {
@@ -254,7 +288,7 @@
         }
 
         .dashboard-logo {
-            width: 46px;
+            width: 54px;
             height: 46px;
 
             display: flex;
@@ -265,15 +299,45 @@
             border:
                 1px solid #c99a3d;
 
-            border-radius: 50%;
+            border-radius: 14px 14px 14px 5px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #ffffff 0%,
+                    #f6fbff 100%
+                );
 
             font-family:
                 Georgia,
                 serif;
 
-            color: #c99a3d;
+            color: #b7862c;
 
-            font-size: 23px;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 1px;
+
+            position: relative;
+        }
+
+        .dashboard-logo::after {
+            content: "";
+
+            position: absolute;
+            bottom: 6px;
+
+            width: 20px;
+            height: 2px;
+
+            border-radius: 999px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #1778aa,
+                    #c99a3d
+                );
         }
 
         .dashboard-brand strong {
@@ -1902,7 +1966,7 @@
     <div class="login-card">
 
         <div class="login-logo">
-            K
+            AB
         </div>
 
         <h1>
@@ -1986,7 +2050,7 @@
         <div class="dashboard-brand">
 
             <div class="dashboard-logo">
-                K
+                AB
             </div>
 
             <div>
@@ -2057,12 +2121,12 @@
                     Upcoming bookings
                 </span>
 
-                <strong>
-                    4
+                <strong id="statUpcomingBookings">
+                    0
                 </strong>
 
-                <small>
-                    Demo data
+                <small id="statUpcomingBookingsNote">
+                    Confirmed + pending
                 </small>
 
             </div>
@@ -2074,11 +2138,11 @@
                     Nights booked
                 </span>
 
-                <strong>
-                    18
+                <strong id="statBookedNights">
+                    0
                 </strong>
 
-                <small>
+                <small id="statBookedNightsNote">
                     This month
                 </small>
 
@@ -2091,12 +2155,12 @@
                     Occupancy
                 </span>
 
-                <strong>
-                    60%
+                <strong id="statOccupancy">
+                    0%
                 </strong>
 
-                <small>
-                    September
+                <small id="statOccupancyNote">
+                    Current month
                 </small>
 
             </div>
@@ -2108,11 +2172,11 @@
                     Guests arriving
                 </span>
 
-                <strong>
-                    11
+                <strong id="statGuestsArriving">
+                    0
                 </strong>
 
-                <small>
+                <small id="statGuestsArrivingNote">
                     Upcoming stays
                 </small>
 
@@ -2609,7 +2673,7 @@
                 <label>
 
                     <span>
-                        Check-out
+                        Last booked night
                     </span>
 
                     <input
@@ -2834,7 +2898,7 @@
             "flex";
     }
 
-    async function userHasKleoHouseAccess() {
+    async function userHasAlmiraBlueAccess() {
         const {
             data,
             error
@@ -2910,7 +2974,7 @@
             }
 
             const allowed =
-                await userHasKleoHouseAccess();
+                await userHasAlmiraBlueAccess();
 
             if (!allowed) {
                 await supabaseClient
@@ -3011,7 +3075,7 @@
         }
 
         const allowed =
-            await userHasKleoHouseAccess();
+            await userHasAlmiraBlueAccess();
 
         if (allowed) {
             await initializeOwnerDashboard();
@@ -3097,15 +3161,56 @@ const printRevenue =
     );
 
 
+const statUpcomingBookings =
+    document.getElementById(
+        "statUpcomingBookings"
+    );
+
+const statUpcomingBookingsNote =
+    document.getElementById(
+        "statUpcomingBookingsNote"
+    );
+
+const statBookedNights =
+    document.getElementById(
+        "statBookedNights"
+    );
+
+const statBookedNightsNote =
+    document.getElementById(
+        "statBookedNightsNote"
+    );
+
+const statOccupancy =
+    document.getElementById(
+        "statOccupancy"
+    );
+
+const statOccupancyNote =
+    document.getElementById(
+        "statOccupancyNote"
+    );
+
+const statGuestsArriving =
+    document.getElementById(
+        "statGuestsArriving"
+    );
+
+const statGuestsArrivingNote =
+    document.getElementById(
+        "statGuestsArrivingNote"
+    );
+
+
 let ownerCalendarDate =
     new Date();
 
 
 /*
-    DEMO RESERVATIONS
+    LIVE RESERVATIONS
 
-    Later these will come from
-    the real reservation database.
+    Loaded from Supabase for
+    the authenticated property.
 */
 
 let ownerReservations =
@@ -4452,6 +4557,76 @@ function parseLocalDate(
 }
 
 
+function shiftDateKey(
+    value,
+    days
+) {
+
+    const date =
+        parseLocalDate(
+            value
+        );
+
+    date.setDate(
+        date.getDate() +
+        days
+    );
+
+    return ownerDateKey(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate()
+    );
+
+}
+
+
+function isOwnerManagedReservation(
+    reservation
+) {
+
+    return (
+        !reservation?.source ||
+        [
+            "manual",
+            "direct"
+        ].includes(
+            reservation.source
+        )
+    );
+
+}
+
+
+/*
+    Manual owner bookings use an inclusive end date in the UI:
+    1 -> 10 means nights 1 through 10 are booked.
+
+    Supabase keeps the standard exclusive check_out date internally,
+    so the stored check_out becomes the following day (11).
+*/
+function getOwnerDisplayEndDate(
+    reservation
+) {
+
+    if (
+        !reservation?.checkOut
+    ) {
+        return "";
+    }
+
+    return isOwnerManagedReservation(
+        reservation
+    )
+        ? shiftDateKey(
+            reservation.checkOut,
+            -1
+        )
+        : reservation.checkOut;
+
+}
+
+
 /* =========================================
    FIND DAY STATUS
 ========================================= */
@@ -4495,8 +4670,8 @@ function getOwnerDayInfo(
 
 
         /*
-            Check-out date becomes
-            available again.
+            Stored check_out remains exclusive.
+            Manual owner bookings are converted to this format when saved.
         */
 
         if (
@@ -4531,6 +4706,192 @@ function getOwnerDayInfo(
             "Available"
 
     };
+
+}
+
+
+/* =========================================
+   LIVE DASHBOARD STATS
+========================================= */
+
+function updateDashboardStats() {
+
+    if (
+        !statUpcomingBookings ||
+        !statBookedNights ||
+        !statOccupancy ||
+        !statGuestsArriving
+    ) {
+        return;
+    }
+
+
+    const today =
+        new Date();
+
+    today.setHours(
+        0,
+        0,
+        0,
+        0
+    );
+
+
+    const activeReservations =
+        ownerReservations.filter(
+            reservation =>
+                reservation.status !==
+                    "cancelled"
+        );
+
+
+    const upcomingReservations =
+        activeReservations.filter(
+            reservation =>
+                parseLocalDate(
+                    reservation.checkOut
+                ) > today
+        );
+
+
+    const futureArrivals =
+        activeReservations.filter(
+            reservation =>
+                parseLocalDate(
+                    reservation.checkIn
+                ) >= today
+        );
+
+
+    const year =
+        ownerCalendarDate
+            .getFullYear();
+
+    const month =
+        ownerCalendarDate
+            .getMonth();
+
+    const monthStart =
+        new Date(
+            year,
+            month,
+            1
+        );
+
+    const monthEnd =
+        new Date(
+            year,
+            month + 1,
+            1
+        );
+
+
+    const monthReservations =
+        activeReservations.filter(
+            reservation =>
+                reservationOverlapsMonth(
+                    reservation,
+                    monthStart,
+                    monthEnd
+                )
+        );
+
+
+    const bookedNights =
+        monthReservations.reduce(
+            (
+                total,
+                reservation
+            ) =>
+                total +
+                nightsInsideMonth(
+                    reservation,
+                    monthStart,
+                    monthEnd
+                ),
+            0
+        );
+
+
+    const daysInMonth =
+        new Date(
+            year,
+            month + 1,
+            0
+        ).getDate();
+
+
+    const occupancy =
+        daysInMonth > 0
+            ? Math.min(
+                100,
+                Math.round(
+                    (
+                        bookedNights /
+                        daysInMonth
+                    ) *
+                    100
+                )
+            )
+            : 0;
+
+
+    const guestsArriving =
+        futureArrivals.reduce(
+            (
+                total,
+                reservation
+            ) =>
+                total +
+                Number(
+                    reservation.guests ||
+                    0
+                ),
+            0
+        );
+
+
+    const monthLabel =
+        new Intl.DateTimeFormat(
+            "en",
+            {
+                month:
+                    "long",
+
+                year:
+                    "numeric"
+            }
+        ).format(
+            monthStart
+        );
+
+
+    statUpcomingBookings.textContent =
+        upcomingReservations.length;
+
+    statUpcomingBookingsNote.textContent =
+        "Confirmed + pending";
+
+
+    statBookedNights.textContent =
+        bookedNights;
+
+    statBookedNightsNote.textContent =
+        monthLabel;
+
+
+    statOccupancy.textContent =
+        occupancy + "%";
+
+    statOccupancyNote.textContent =
+        monthLabel;
+
+
+    statGuestsArriving.textContent =
+        guestsArriving;
+
+    statGuestsArrivingNote.textContent =
+        "Upcoming stays";
 
 }
 
@@ -4771,6 +5132,9 @@ function renderOwnerCalendar() {
         );
 
     }
+
+
+    updateDashboardStats();
 
 }
 
@@ -5188,7 +5552,9 @@ function buildPrintMonthReport() {
             dates.textContent =
                 reservation.checkIn +
                 " → " +
-                reservation.checkOut;
+                getOwnerDisplayEndDate(
+                    reservation
+                );
 
             const guests =
                 document.createElement(
@@ -5491,7 +5857,9 @@ deleteBookingButton.style.display =
         reservation.checkIn || "";
 
     modalCheckOut.value =
-        reservation.checkOut || "";
+        getOwnerDisplayEndDate(
+            reservation
+        );
 
     modalGuests.value =
         reservation.guests || 1;
@@ -5651,7 +6019,9 @@ function renderBookingList() {
             dates.textContent =
                 reservation.checkIn +
                 " — " +
-                reservation.checkOut;
+                getOwnerDisplayEndDate(
+                    reservation
+                );
 
 
             const guests =
@@ -5766,11 +6136,11 @@ saveBookingButton.addEventListener(
 
 
         if (
-            checkOut <= checkIn
+            checkOut < checkIn
         ) {
 
             modalMessage.textContent =
-                "Check-out must be after check-in.";
+                "Last booked night cannot be before check-in.";
 
             return;
 
@@ -5787,6 +6157,18 @@ saveBookingButton.addEventListener(
             return;
 
         }
+
+
+        /*
+            Owner enters the LAST BOOKED NIGHT inclusively.
+            Supabase stores check_out exclusively, so add one day.
+            Example: 1 -> 10 in the UI is stored as check_out = 11.
+        */
+        const storedCheckOut =
+            shiftDateKey(
+                checkOut,
+                1
+            );
 
 
         if (
@@ -5845,7 +6227,7 @@ saveBookingButton.addEventListener(
                                 checkIn,
 
                             p_check_out:
-                                checkOut,
+                                storedCheckOut,
 
                             p_status:
                                 modalStatus.value,
